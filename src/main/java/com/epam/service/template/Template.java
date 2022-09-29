@@ -1,4 +1,4 @@
-package com.epam.ld.module2.testing.template;
+package com.epam.service.template;
 
 /**
  * The type Template.

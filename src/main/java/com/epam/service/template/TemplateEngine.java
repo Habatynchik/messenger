@@ -1,6 +1,6 @@
-package com.epam.ld.module2.testing.template;
+package com.epam.service.template;
 
-import com.epam.ld.module2.testing.Client;
+import com.epam.service.Client;
 
 /**
  * The type Template engine.

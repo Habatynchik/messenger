@@ -1,8 +1,8 @@
-package com.epam.ld.module2.testing;
+package com.epam.service;
 
 
-import com.epam.ld.module2.testing.template.Template;
-import com.epam.ld.module2.testing.template.TemplateEngine;
+import com.epam.service.template.Template;
+import com.epam.service.template.TemplateEngine;
 
 /**
  * The type Messenger.
