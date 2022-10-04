@@ -1,5 +1,9 @@
 package com.epam.service;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+
 /**
  * Mail server class.
  */
@@ -12,5 +16,8 @@ public class MailServer {
      * @param messageContent the message content
      */
     public void send(String addresses, String messageContent) {
+
+
     }
+
 }
