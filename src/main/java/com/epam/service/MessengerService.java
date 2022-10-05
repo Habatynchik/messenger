@@ -28,4 +28,18 @@ public class MessengerService {
 
         return message;
     }
+
+    public String sendMessageInFileMode(String inputPath, String outputPath) {
+        InputMessenger inputMessenger = ioService.inputMessengerFromFile(inputPath);
+        Template template = new Template(inputMessenger.getTemplateValue());
+        Client client = new Client(inputMessenger.getTemplateValues());
+
+        String message = templateEngine.generateMessage(template, client);
+
+        ioService.outputMessengerFromFile(message, outputPath);
+        Messenger messenger = new Messenger(mailServer, templateEngine);
+        messenger.sendMessage(client, template);
+
+        return message;
+    }
 }

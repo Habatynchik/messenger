@@ -1,7 +1,6 @@
 package com.epam;
 
 import com.epam.service.IOService;
-import com.epam.service.InputMessenger;
 import com.epam.service.MailServer;
 import com.epam.service.MessengerService;
 import com.epam.service.template.TemplateEngine;
@@ -21,6 +20,12 @@ public class Application {
 
             if (scanner.next().equals("Console")){
                 messengerService.sendMessageInConsoleMode();
+            } else {
+                System.out.println("Input File path: ");
+                String inputPath = scanner.next();
+                System.out.println("Output File path: ");
+                String outputPath = scanner.next();
+                messengerService.sendMessageInFileMode(inputPath, outputPath);
             }
         }
     }
