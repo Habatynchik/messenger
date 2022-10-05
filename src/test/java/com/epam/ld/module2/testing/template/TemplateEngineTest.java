@@ -27,4 +27,8 @@ public class TemplateEngineTest {
         assertEquals("I want to see Nikita on Saturday", templateEngine.generateMessage(template, client));
     }
 
+
+
+
+
 }
