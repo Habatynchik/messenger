@@ -1,3 +1,4 @@
-Hello #{name}, you #{kek}
-Nick
-vasya
+I want to see #{name} on #{day}
+Nikita
+Saturday
+

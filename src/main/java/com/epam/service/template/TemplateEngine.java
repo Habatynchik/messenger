@@ -29,9 +29,13 @@ public class TemplateEngine {
 
         while (matcher.find()) {
             String patternValues = matcher.group(1);
-            String realValues = templateValues.get(patternValues);
+            String realValue = templateValues.get(patternValues);
 
-            matcher.appendReplacement(result, realValues);
+            if (realValue == null) {
+                throw new IllegalArgumentException("Value for placeholder is missing, placeholder = " + patternValues);
+            }
+
+            matcher.appendReplacement(result, realValue);
         }
         matcher.appendTail(result);
         return result.toString();

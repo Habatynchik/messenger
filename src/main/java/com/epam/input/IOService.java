@@ -1,9 +1,13 @@
 package com.epam.input;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,22 +16,24 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class IOService {
+    private final Logger log = LogManager.getLogger(IOService.class);
 
     public InputMessenger inputMessengerFromConsole() {
 
         String templateValue;
         Map<String, String> templateValues = new HashMap<>();
         try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println("Please input template: ");
+
+            log.info("Please input template: ");
             templateValue = scanner.nextLine();
 
             Pattern pattern = Pattern.compile("#\\{([^}]*)}");
             Matcher matcher = pattern.matcher(templateValue);
 
-            System.out.println("Please input values: ");
+            log.info("Please input values: ");
             while (matcher.find()) {
                 String key = matcher.group(1);
-                System.out.print(key + ": ");
+                log.info("{}: ", key);
                 String value = scanner.nextLine();
 
                 templateValues.put(key, value);
@@ -36,12 +42,12 @@ public class IOService {
         return new InputMessenger(templateValue, templateValues);
     }
 
-    public InputMessenger inputMessengerFromFile(String path) {
+    public InputMessenger inputMessengerFromFile(Path path) {
 
         String templateValue;
         Map<String, String> templateValues = new HashMap<>();
 
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get(path))) {
+        try (BufferedReader reader = Files.newBufferedReader(path)) {
 
             templateValue = reader.readLine();
 
@@ -62,14 +68,14 @@ public class IOService {
         return new InputMessenger(templateValue, templateValues);
     }
 
-    public boolean outputMessengerFromFile(String message, String path) {
+    public void outputMessengerFromFile(String message, Path path) {
 
-        try (BufferedWriter bufferedWriter = Files.newBufferedWriter(Paths.get(path))) {
+        try (BufferedWriter bufferedWriter = Files.newBufferedWriter(path)) {
+
             bufferedWriter.write(message);
         } catch (IOException e) {
-            return false;
+            log.error("IOException: %s%n", e);
         }
-        return true;
     }
 
 
