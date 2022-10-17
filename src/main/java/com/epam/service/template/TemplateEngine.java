@@ -1,6 +1,7 @@
 package com.epam.service.template;
 
 import com.epam.service.Client;
+import com.epam.service.exceptions.MissingValuesForPlaceholderException;
 
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -17,8 +18,7 @@ public class TemplateEngine {
      * @param client   the client
      * @return the string
      */
-    public String generateMessage(Template template, Client client) {
-
+    public String generateMessage(Template template, Client client) throws MissingValuesForPlaceholderException {
         String templateMessage = template.getTemplateValue().trim();
         Map<String, String> templateValues = client.getTemplateValues();
 
@@ -32,7 +32,7 @@ public class TemplateEngine {
             String realValue = templateValues.get(patternValues);
 
             if (realValue == null) {
-                throw new IllegalArgumentException("Value for placeholder is missing, placeholder = " + patternValues);
+                throw new MissingValuesForPlaceholderException();
             }
 
             matcher.appendReplacement(result, realValue);

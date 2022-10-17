@@ -3,9 +3,9 @@ package com.epam;
 import com.epam.input.IOService;
 import com.epam.service.MailServer;
 import com.epam.service.MessengerService;
+import com.epam.service.exceptions.MissingValuesForPlaceholderException;
 import com.epam.service.template.TemplateEngine;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -13,12 +13,10 @@ import java.util.Scanner;
 
 //C:\Users\habat\IdeaProjects\messenger\src\main\resources\input.txt
 //C:\Users\habat\IdeaProjects\messenger\src\main\resources\output.txt
+@Slf4j
 public class Application {
-    private static final Logger log = LogManager.getLogger(Application.class);
 
-    public static void main(String[] args) {
-
-
+    public static void main(String[] args) throws MissingValuesForPlaceholderException {
         MailServer mailServer = new MailServer();
         TemplateEngine templateEngine = new TemplateEngine();
         IOService ioService = new IOService();
@@ -34,8 +32,10 @@ public class Application {
                 Path outputPath = new File(args[1]).toPath();
                 messengerService.sendMessageInFileMode(inputPath, outputPath);
             } else {
-                throw new RuntimeException("");
+                throw new IllegalArgumentException("Wrong application arguments");
             }
+        } catch (MissingValuesForPlaceholderException e) {
+            throw new MissingValuesForPlaceholderException();
         }
     }
 }

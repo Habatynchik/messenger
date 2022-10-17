@@ -41,7 +41,14 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-log4j2:2.7.4'
 // https://mvnrepository.com/artifact/org.mockito/mockito-core
     implementation 'org.mockito:mockito-core:2.1.0'
+// https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation 'org.slf4j:slf4j-api:1.7.25'
 
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.24'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
 }
 
 test {

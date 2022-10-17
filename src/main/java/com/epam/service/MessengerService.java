@@ -2,17 +2,15 @@ package com.epam.service;
 
 import com.epam.input.IOService;
 import com.epam.input.InputMessenger;
+import com.epam.service.exceptions.MissingValuesForPlaceholderException;
 import com.epam.service.template.Template;
 import com.epam.service.template.TemplateEngine;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Path;
 
+@Slf4j
 public class MessengerService {
-
-    private final Logger log = LogManager.getLogger(MessengerService.class);
-
     private final IOService ioService;
     private final MailServer mailServer;
     private final TemplateEngine templateEngine;
@@ -23,7 +21,7 @@ public class MessengerService {
         this.templateEngine = templateEngine;
     }
 
-    public String sendMessageInConsoleMode() {
+    public String sendMessageInConsoleMode() throws MissingValuesForPlaceholderException {
         InputMessenger inputMessenger = ioService.inputMessengerFromConsole();
         Template template = new Template(inputMessenger.getTemplateValue());
         Client client = new Client(inputMessenger.getTemplateValues());
@@ -37,7 +35,7 @@ public class MessengerService {
         return message;
     }
 
-    public String sendMessageInFileMode(Path inputPath, Path outputPath) {
+    public String sendMessageInFileMode(Path inputPath, Path outputPath) throws MissingValuesForPlaceholderException {
         InputMessenger inputMessenger = ioService.inputMessengerFromFile(inputPath);
         Template template = new Template(inputMessenger.getTemplateValue());
         Client client = new Client(inputMessenger.getTemplateValues());

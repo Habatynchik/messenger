@@ -1,6 +1,7 @@
 package com.epam.service;
 
 
+import com.epam.service.exceptions.MissingValuesForPlaceholderException;
 import com.epam.service.template.Template;
 import com.epam.service.template.TemplateEngine;
 
@@ -29,7 +30,7 @@ public class Messenger {
      * @param client   the client
      * @param template the template
      */
-    public void sendMessage(Client client, Template template) {
+    public void sendMessage(Client client, Template template) throws MissingValuesForPlaceholderException {
         String messageContent =
             templateEngine.generateMessage(template, client);
         mailServer.send(client.getAddresses(), messageContent);
