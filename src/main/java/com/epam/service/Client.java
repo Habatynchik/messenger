@@ -1,25 +1,29 @@
 package com.epam.service;
 
+import java.util.Map;
+
 /**
  * The type Client.
  */
 public class Client {
-    private String addresses;
+    private static final String DEFAULT_ADDRESS = "Default address";
 
-    /**
-     * Gets addresses.
-     *
-     * @return the addresses
-     */
+    private String addresses;
+    private Map<String, String> templateValues;
+
+    public Client(Map<String, String> templateValues) {
+        this.templateValues = templateValues;
+        setAddresses(DEFAULT_ADDRESS);
+    }
+
+    public Map<String, String> getTemplateValues() {
+        return templateValues;
+    }
+
     public String getAddresses() {
         return addresses;
     }
 
-    /**
-     * Sets addresses.
-     *
-     * @param addresses the addresses
-     */
     public void setAddresses(String addresses) {
         this.addresses = addresses;
     }

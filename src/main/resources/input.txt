@@ -1,0 +1,4 @@
+I want to see #{name} on #{day}
+Nikita
+Saturday
+
